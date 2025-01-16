@@ -19,6 +19,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain_groq import ChatGroq
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -49,6 +51,7 @@ def load_db(embeddings,pdf_path):
     return vectorstore
 
 embeddings = HuggingFaceInstructEmbeddings(model_name='hkunlp/instructor-xl')
+#embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
 pdf_path = "PeterPan.pdf"
 
