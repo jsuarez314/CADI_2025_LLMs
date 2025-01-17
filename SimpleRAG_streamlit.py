@@ -21,7 +21,6 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain_groq import ChatGroq
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.embeddings import SentenceTransformerEmbeddings
-
 from dotenv import load_dotenv
 load_dotenv()
 api_key= os.getenv('GROQ_API_KEY')
@@ -50,8 +49,8 @@ def load_db(embeddings,pdf_path):
     vectorstore = FAISS.from_texts(docs, embeddings)
     return vectorstore
 
-embeddings = HuggingFaceInstructEmbeddings(model_name='hkunlp/instructor-xl')
-#embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+#embeddings = HuggingFaceInstructEmbeddings(model_name='hkunlp/instructor-xl')
+embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
 pdf_path = "PeterPan.pdf"
 
@@ -91,3 +90,4 @@ if question:
     result=conversation_chain({"question": question}, {"chat_history": history})
     st.write(bot_template.replace("{{MSG}}", result['answer']), unsafe_allow_html=True)
     history.append((question, result["answer"]))
+    
